@@ -15,17 +15,17 @@ const userSchema = mongoose.Schema({
     required :true,
   },
   lastLogin:{
-    type: String,
-    required :true,
+    type: Date,
+		default: Date.now,
   },
-  isVerufied:{
+  isVerified:{
     type:Boolean,
     default:false
   },
-  resetPasswordToken:String,
-  resetPasswordExpiresAt:Date,
-  verificationToken:String,
-  verificationTokenExpiresAt:Date,
+  resetPasswordToken: String,
+  resetPasswordExpiresAt: Date,
+  verificationToken: String,
+  verificationTokenExpiresAt: Date,
 
 },{
   timestamps:true

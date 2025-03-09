@@ -14,19 +14,27 @@ export const signin = async(req,res)=>{
       return res.status(400).json({message:"user already exist"});
 
     }
-    const hashedPassword = bcrypt.hash(password,10);
+    const hashedPassword = await bcrypt.hash(password,10);
+    console.log("done");
+    
     const verificationToken = Math.floor(10000+Math.random()* 900000).toString();
     const user = new User({
       email,
-      paswword: hashedPassword,
-      name,
-      verificationToken,
-      verificationTokenExpiresAt: Date.now()+24*60*60*1000
+			password: hashedPassword,
+			name,
+			verificationToken,
+			verificationTokenExpiresAt: Date.now() + 24 * 60 * 60 * 1000,
     })
+    
 
     await user.save();
+    console.log(user.save());
+    
+    console.log("done");
     generateTokenAndSetCookie(res,user._id 
     )
+    console.log("done");
+    
     res.status(201).json({message:"User created successfully",
       success: true,
       user:{
